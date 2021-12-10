@@ -1,3 +1,116 @@
+@charset "utf-8";
+
+/* top */
+
+.top-all {
+  height: 600px;
+  background: url(/src/22360871_m.jpg) 5%;
+}
+
+.top-inner {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.top-title {
+  font-size: 77px;
+  padding-top: 30px;
+}
+
+.top-subtitle {
+  display: inline-block;
+  position: absolute;
+  top: 400px;
+  left: 60%;
+}
+
+.top-subtitle h2 {
+  font-family: "Kiwi Maru", serif;
+  font-size: 60px;
+}
+
+.top-subtitle p {
+  text-align: center;
+  font-size: 20px;
+  line-height: 1.5;
+  padding-top: 60px;
+}
+
+/* 検索 */
+.search-inner {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.search-form {
+  display: flex;
+  text-align: center;
+  margin: 30px auto;
+  padding-top: 30px;
+  font-size: 25px;
+  border: 3px solid #b88b94;
+  background-color: #fff;
+  border-radius: 40px;
+}
+
+.search-form form {
+  margin: 0 auto;
+}
+
+.search-form table tr td {
+  padding: 0 10px 30px 0;
+}
+
+.last {
+  font-size: 17px;
+  background: #fff;
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+
+.last:hover {
+  background-color: #efefef;
+  cursor: pointer;
+}
+
+/* 新作情報 */
+
+.info,
+.good-rank {
+  width: 80%;
+  display: flex;
+  gap: 0 8%;
+  margin: 0 auto;
+}
+
+.container {
+  display: block;
+  width: 28%;
+  text-align: center;
+}
+
+/* お知らせ */
+.news-inner {
+  width: 90%;
+  margin: 0 auto 110px;
+}
+
+.news-inner table {
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.news-inner table tr {
+  font-size: 25px;
+  border-bottom: 1px solid #555;
+}
+
+.news-inner table tr td {
+  letter-spacing: 1.5;
+  line-height: 2;
+  padding: 0 30px;
+}
+
 .App {
   text-align: center;
 }
