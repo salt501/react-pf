@@ -24,7 +24,24 @@ class Page extends React.Component{
       { img: "", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" },
       { img: "", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" }
     ];
-    this.state = { news: news,  newItem: newItem, likedItem: likedItem};
+    this.state =
+      { news: news, newItem: newItem, likedItem: likedItem };
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://docs.google.com/spreadsheets/d/1YXOZke83S2czRgUZ-BsvFe6_EgrXT4po9GAuk7L4WS0/edit?usp=sharing', true);
+    xhr.send(null);
+    
+    xhr.onreadystatechange =
+      function () {
+        let result = [];
+        let tmp = xhr.responseText.split('\n');
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          for (var i = 0; i < tmp.length; ++i) {
+            result[i] = tmp[i].split(',');
+          }
+        }
+        return console.log(result);
+      }
     
   }
 
