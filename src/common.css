@@ -5,21 +5,21 @@ a{
 }
 
 section{
-  padding: 70px 0 50px 0;
+  padding: 77px 0 50px 0;
   margin: 0 auto;
-  background-color: #f9f7eb;
 }
 
 .font2{
   display: block;
-  font-size: 50px;
+  font-size: 40px;
   margin-bottom: 50px;
   text-align: center;
 }
 
 .font3{
-  font-size: 25px;
+  font-size: 20px;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .font4{
@@ -30,21 +30,38 @@ section{
 /* header */
 .header-all{
   width: 100%;
+  margin: 0 auto;
   font-size: 30px;
   background-color: #e0bbc5;
   position: fixed;
   z-index: 10;
+  box-shadow: 0 2px 9px 2px #d6b2bb;
 }
 
 .header-list{
-  text-align: right;
-  margin-right: 20px;
+  text-align: center;
+  margin: 20px auto;
+  
 }
 
 .header-list li{
+  position: relative;
   display: inline-block;
-  margin: 20px 20px;
+  padding: 5px 40px;
   color: #444;
+  font-size: 18px;
+  border-right: 3px solid #edf0f5;
+}
+
+.header-list li:nth-of-type(1){
+  border-left: 3px solid #edf0f5;
+}
+
+
+
+.header-list li:hover{
+  opacity: 0.5;
+  transition: 0.5s all;
 }
 
 /* footer */

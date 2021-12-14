@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './reset.css';
 import './App.css';
 import './common.css';
+import './output.json';
 import { render } from '@testing-library/react';
 
 
@@ -15,32 +16,32 @@ class Page extends React.Component{
       { date: "2021/01/01", text: "新しい情報を追加しました" },
       { date: "2021/01/01", text: "新しい情報を追加しました" }];
     const newItem = [
-      { img: "", title: "Dior新作" },
-      { img: "", title: "CHANEL新作" },
-      { img: "", title: "Diorクリスマスコフレ" }
+      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dw6c0489b1/assets/Y0996356/Y0996356_F000355100_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", title: "Dior新作" },
+      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", title: "CHANEL新作" },
+      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", title: "Diorクリスマスコフレ" }
     ];
     const likedItem = [
-      { img: "", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" },
-      { img: "", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" },
-      { img: "", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" }
+      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" },
+      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" },
+      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" }
     ];
     this.state =
       { news: news, newItem: newItem, likedItem: likedItem };
     
+    let jsonData = '{"name":"hana"}';
+    let jsonObject = JSON.parse(jsonData);
+    console.log(jsonObject);
+
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://docs.google.com/spreadsheets/d/1YXOZke83S2czRgUZ-BsvFe6_EgrXT4po9GAuk7L4WS0/edit?usp=sharing', true);
-    xhr.send(null);
-    
+    let json_data = xhr.open('GET', './output.json', true);
+    xhr.send();
     xhr.onreadystatechange =
       function () {
-        let result = [];
-        let tmp = xhr.responseText.split('\n');
         if (xhr.readyState === 4 && xhr.status === 200) {
-          for (var i = 0; i < tmp.length; ++i) {
-            result[i] = tmp[i].split(',');
-          }
-        }
-        return console.log(result);
+          let json_object = JSON.parse(json_data);
+          return console.log(json_object);
+        };
+        
       }
     
   }
@@ -122,7 +123,7 @@ class Page extends React.Component{
             <h2 className="font2">新作情報</h2>
             <div className="info">
               {this.state.newItem.map(
-                (ni) => <NewItem title={ni.title} />
+                (ni) => <NewItem img={ni.img} title={ni.title} />
               )}
             </div>
           </section>
@@ -132,7 +133,7 @@ class Page extends React.Component{
             <h2 className="font2">良いねランキング</h2>
             <div className="good-rank">
               {this.state.likedItem.map(
-                (li) => <LikedItem img={li.img} bland={li.bland} ttl={li.ttl} colorttl={li.colorttl} colorSttl={li.colorSttl} />)}
+                (li) => <LikedItem img={li.img} ttl={li.ttl} bland={li.bland} colorttl={li.colorttl} colorSttl={li.colorSttl} />)}
             </div>
           </section>
 
@@ -164,7 +165,7 @@ class Page extends React.Component{
       </div>
     )
   };
-}
+ }
 
 export default Page;
 
@@ -177,7 +178,9 @@ class NewItem extends React.Component{
   render() {
     return (
       <div className="container">
-        <img src={this.props.img} alt="新作" />
+        <div className="container-img">
+          <img src={this.props.img} alt="新作" />
+        </div>
         <h3 className="font3">{ this.props.title }</h3>
       </div>
     )
@@ -196,10 +199,12 @@ class LikedItem extends React.Component{
     return (
       <div className="container">
         <h3 className="font3">1位</h3>
-        <img src={this.props.img} alt="ランク" />
-        <h3 className="font3">{ this.props.bland }</h3>
+        <div className="container-img">
+          <img src={this.props.img} alt="ランク" />
+        </div>
+        <h3 className="font3">{this.props.ttl}</h3>
         <h4 className="font4">
-          {this.props.ttl}
+          { this.props.bland }
           <br />{this.props.colorttl}
           <br />{ this.props.colorSttl }</h4>
        </div>
