@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import './reset.css';
 import './App.css';
 import './common.css';
-import './output.json';
+
 import { render } from '@testing-library/react';
 
 
@@ -28,20 +28,18 @@ class Page extends React.Component{
     this.state =
       { news: news, newItem: newItem, likedItem: likedItem };
     
-    let jsonData = '{"name":"hana"}';
-    let jsonObject = JSON.parse(jsonData);
-    console.log(jsonObject);
-
+    
+    
     var xhr = new XMLHttpRequest();
-    let json_data = xhr.open('GET', './output.json', true);
+    xhr.open('GET', 'http://localhost:3000/output.json');
     xhr.send();
+
     xhr.onreadystatechange =
       function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-          let json_object = JSON.parse(json_data);
-          return console.log(json_object);
+          let json_data = JSON.parse(xhr.response);
+          return console.log(json_data[1]);
         };
-        
       }
     
   }

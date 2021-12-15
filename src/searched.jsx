@@ -1,5 +1,3 @@
-'use strict';
-import react from "react";
 import React from "react";
 
 class SearchedPage extends React.Component{
@@ -14,10 +12,10 @@ class SearchedPage extends React.Component{
           <div className="header-all">
             <nav>
               <ul className="header-list">
-                <li><a href="./App.jsx/#search">検索</a></li>
-                <li><a href="./App.jsx/#new">新作情報</a></li>
-                <li><a href="./App.jsx/#ranking">ランキング</a></li>
-                <li><a href="./App.jsx/#news">お知らせ</a></li>
+                <li><a href="./index.html/#search">検索</a></li>
+                <li><a href="./index.html/#new">新作情報</a></li>
+                <li><a href="./index.html/#ranking">ランキング</a></li>
+                <li><a href="./index.html/#news">お知らせ</a></li>
               </ul>
             </nav>
           </div>
@@ -26,3 +24,7 @@ class SearchedPage extends React.Component{
     )
   }
 }
+
+ReactDOM.render(
+  SearchedPage, document.getElementById('root')
+);
