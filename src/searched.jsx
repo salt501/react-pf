@@ -1,6 +1,10 @@
 import React from "react";
+import ReactDOM from 'react-dom';
+import './reset.css';
+import './common.css';
+import './index.css';
 
-class SearchedPage extends React.Component{
+class Page extends React.Component{
   constructor(props) {
     super(props);
   }
@@ -12,10 +16,10 @@ class SearchedPage extends React.Component{
           <div className="header-all">
             <nav>
               <ul className="header-list">
-                <li><a href="./index.html/#search">検索</a></li>
-                <li><a href="./index.html/#new">新作情報</a></li>
-                <li><a href="./index.html/#ranking">ランキング</a></li>
-                <li><a href="./index.html/#news">お知らせ</a></li>
+                <li><a href="../public/index.html/#search">検索</a></li>
+                <li><a href="../public/index.html/#new">新作情報</a></li>
+                <li><a href="../public/index.html/#ranking">ランキング</a></li>
+                <li><a href="../public/index.html/#news">お知らせ</a></li>
               </ul>
             </nav>
           </div>
@@ -26,5 +30,5 @@ class SearchedPage extends React.Component{
 }
 
 ReactDOM.render(
-  SearchedPage, document.getElementById('root')
+  Page, document.getElementById('s-root')
 );

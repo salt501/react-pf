@@ -4,7 +4,6 @@ import logo from './logo.svg';
 import './reset.css';
 import './App.css';
 import './common.css';
-
 import { render } from '@testing-library/react';
 
 
@@ -15,35 +14,48 @@ class Page extends React.Component{
       { date: "2021/01/01", text: "新しい情報を追加しました" },
       { date: "2021/01/01", text: "新しい情報を追加しました" },
       { date: "2021/01/01", text: "新しい情報を追加しました" }];
-    const newItem = [
-      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dw6c0489b1/assets/Y0996356/Y0996356_F000355100_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", title: "Dior新作" },
-      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", title: "CHANEL新作" },
-      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", title: "Diorクリスマスコフレ" }
+    let newItem = [
+      { img: "", title: "" },
+      { img: "", title: "" },
+      { img: "", title: "" }
     ];
     const likedItem = [
-      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" },
+      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", bland: "", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" },
       { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" },
       { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" }
     ];
-    this.state =
-      { news: news, newItem: newItem, likedItem: likedItem };
-    
-    
+
+    this.state = { news: news, newItem: newItem, likedItem: likedItem };
     
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/output.json');
-    xhr.send();
-
+    xhr.open('GET', './output.json');
     xhr.onreadystatechange =
-      function () {
+      () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
-          let json_data = JSON.parse(xhr.response);
-          return console.log(json_data[1]);
-        };
+          let json_data = JSON.parse(xhr.responseText);
+
+          newItem = [
+            {
+              img: json_data[json_data.length - 1].画像URL,
+              title: json_data[json_data.length - 1].ブランド
+            },
+            {
+              img: json_data[json_data.length - 2].画像URL,
+              title: json_data[json_data.length - 2].ブランド
+            },
+            {
+              img: json_data[json_data.length - 3].画像URL,
+              title: json_data[json_data.length - 3].ブランド
+            }
+          ];
+          this.setState({ newItem: newItem});
+          
+        }
       }
     
+    xhr.send();
   }
-
+  
   render() {
     return (
       <div>
@@ -209,7 +221,7 @@ class LikedItem extends React.Component{
     )
   }
 }
-const likedItem = new LikedItem();
+
 
 
 // お知らせ
