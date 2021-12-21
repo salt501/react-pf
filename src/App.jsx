@@ -5,12 +5,37 @@ import './reset.css';
 import './App.css';
 import './common.css';
 import { render } from '@testing-library/react';
+import SearchedPage from "./searched";
+
+import {  BrowserRouter,  Routes,  Route, Link} from "react-router-dom";
 
 
-class Page extends React.Component{
+
+export class App extends React.Component{
+  render() {
+    return (
+      <div>
+        <BrowserRouter>
+          <div>
+            <Link to="/">Home</Link>
+            <Link to="/searched"><SearchedPage /></Link>
+            <Routes>
+              <Route exact path='/' component={Page} ></Route>
+              <Route path='/searched' component={SearchedPage}></Route>
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </div>
+    )
+  }
+}
+
+
+
+export class Page extends React.Component{
   constructor(props) {
     super(props);
-    const news = [
+    let news = [
       { date: "2021/01/01", text: "新しい情報を追加しました" },
       { date: "2021/01/01", text: "新しい情報を追加しました" },
       { date: "2021/01/01", text: "新しい情報を追加しました" }];
@@ -19,7 +44,7 @@ class Page extends React.Component{
       { img: "", title: "" },
       { img: "", title: "" }
     ];
-    const likedItem = [
+    let likedItem = [
       { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", bland: "", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" },
       { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" },
       { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" }
@@ -35,20 +60,16 @@ class Page extends React.Component{
           let json_data = JSON.parse(xhr.responseText);
 
           newItem = [
-            {
-              img: json_data[json_data.length - 1].画像URL,
-              title: json_data[json_data.length - 1].ブランド
-            },
-            {
-              img: json_data[json_data.length - 2].画像URL,
-              title: json_data[json_data.length - 2].ブランド
-            },
-            {
-              img: json_data[json_data.length - 3].画像URL,
-              title: json_data[json_data.length - 3].ブランド
-            }
+            { img: json_data[json_data.length - 1].画像URL,
+              title: json_data[json_data.length - 1].ブランド },
+            { img: json_data[json_data.length - 2].画像URL,
+              title: json_data[json_data.length - 2].ブランド },
+            { img: json_data[json_data.length - 3].画像URL,
+              title: json_data[json_data.length - 3].ブランド }  
           ];
           this.setState({ newItem: newItem});
+
+
           
         }
       }
@@ -177,7 +198,6 @@ class Page extends React.Component{
   };
  }
 
-export default Page;
 
 // 新作情報の要素
 class NewItem extends React.Component{
