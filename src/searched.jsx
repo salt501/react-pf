@@ -10,8 +10,9 @@ class SearchedPage extends React.Component{
     super(props);
 
     let searchedItem = [
-      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dw894f7beb/assets/Y0002959/Y0002959_F000355155_E01_ZHC.jpg", title: "ディオール ヴェルニ", bland: "Dior", colorttl: "テュララ", colorSttl: "", price: "¥3,300", category: "エナメル", color: "ピンク", link: "https://www.dior.com/ja_jp/products/beauty-Y0996356?gclid=Cj0KCQiAsqOMBhDFARIsAFBTN3fqQQmvbPjO2nEsI2kGxR7wkeNkQa6IS1bSMejYRCOHz0_pdCLo9-saAjS6EALw_wcB&gclsrc=aw.ds" },
-      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dw894f7beb/assets/Y0002959/Y0002959_F000355155_E01_ZHC.jpg", title: "ディオール ヴェルニ", bland: "Dior", colorttl: "テュララ", colorSttl: "", price: "¥3,300", category: "エナメル", color: "ピンク", link: "https://www.dior.com/ja_jp/products/beauty-Y0002959-%25E3%2583%2587%25E3%2582%25A3%25E3%2582%25AA%25E3%2583%25BC%25E3%2583%25AB-%25E3%2583%25B4%25E3%2582%25A7%25E3%2583%25AB%25E3%2583%258B-%25E3%2582%25B8%25E3%2582%25A7%25E3%2583%25AB-%25E3%2583%258D%25E3%2582%25A4%25E3%2583%25AB%25E3%2581%25AE%25E4%25BB%2595%25E4%25B8%258A%25E3%2581%258C%25E3%2582%258A%25E3%2582%2592%25E5%258F%25B6%25E3%2581%2588%25E3%2582%258B%25E3%2582%25AF%25E3%2583%2581%25E3%2583%25A5%25E3%2583%25BC%25E3%2583%25AB-%25E3%2583%25B4%25E3%2582%25A7%25E3%2583%25AB%25E3%2583%258B" }
+      { 画像URL: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dw894f7beb/assets/Y0002959/Y0002959_F000355155_E01_ZHC.jpg",名前: "ディオール ヴェルニ", ブランド: "Dior", 色タイトル: "テュララ", サブタイトル: "", 価格: "¥3,300", 分類: "エナメル", 色: "ピンク", URL: "https://www.dior.com/ja_jp/products/beauty-Y0996356?gclid=Cj0KCQiAsqOMBhDFARIsAFBTN3fqQQmvbPjO2nEsI2kGxR7wkeNkQa6IS1bSMejYRCOHz0_pdCLo9-saAjS6EALw_wcB&gclsrc=aw.ds" },
+      { 画像URL: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dw894f7beb/assets/Y0002959/Y0002959_F000355155_E01_ZHC.jpg", 名前: "ディオール ヴェルニ", ブランド: "Dior", 色タイトル: "テュララ", サブタイトル: "", 価格: "¥3,300", 分類: "エナメル", 色: "ピンク", URL: "https://www.dior.com/ja_jp/products/beauty-Y0996356?gclid=Cj0KCQiAsqOMBhDFARIsAFBTN3fqQQmvbPjO2nEsI2kGxR7wkeNkQa6IS1bSMejYRCOHz0_pdCLo9-saAjS6EALw_wcB&gclsrc=aw.ds" }
+      
     ];
 
     this.state = { searchedItem: searchedItem };
@@ -22,30 +23,19 @@ class SearchedPage extends React.Component{
       () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
           let json_data = JSON.parse(xhr.responseText);
-          
+
           // searchedItemの新しい配列を作成する
-          
-          json_data.map(
-            (arr) => {
-              delete Object.assign(arr, {['bland']: json_data[0].ブランド})['ブランド']
-              
-            } 
-          );
-          console.log(json_data);
-         
           searchedItem = json_data.filter(
-            function () {
-              if (searchedItem.bland === 'Dior')
-                return true
+            function(obj){
+              return obj['ブランド'] === "Dior";
             }
           )
-          this.setState({ searchedItem: searchedItem })
-          
+          this.setState({ searchedItem: searchedItem });
+          console.log(searchedItem);
         };
-          
         
-          
       }
+    
     xhr.send();
   }
     
@@ -88,7 +78,7 @@ class SearchedPage extends React.Component{
 
           <section className="result">
             {this.state.searchedItem.map(
-              (s) => <SearchedItem img={s.img} title={s.title} bland={s.bland} colorttl={s.colorttl} colorSttl={s.colorSttl} price={s.price} category={s.category} color={s.color} link={s.link}/>
+              (s) => <SearchedItem 画像URL={s['画像URL']} 名前={s['名前']} ブランド={s['ブランド']} 色タイトル={s['色タイトル']} サブタイトル={s['サブタイトル']} 価格={s['価格']} 分類={s['分類']} 色={s['色']} URL={s['URL']}/>
             )}
           </section>
         </main>
@@ -106,26 +96,26 @@ class SearchedItem extends React.Component{
     return (
       <div className="result-all">
         <div className="result-img">
-          <img src={ this.props.img } alt="検索画像" />
+          <img src={ this.props['画像URL'] } alt="検索画像" />
         </div>
         <div className="result-container">
-          <h3 className="font3">{ this.props.title }</h3>
+          <h3 className="font3">{ this.props['名前'] }</h3>
           <div className="result-txt">
-            <h4 className="font4">{ this.props.bland }</h4>
+            <h4 className="font4">{ this.props['ブランド'] }</h4>
             <div className="txt-inner">
-              <p className="colorttl">{ this.props.colorttl }</p>
-              <p className="colorSttl">{ this.props.colorSttl }</p>
+              <p className="colorttl">{ this.props['色タイトル'] }</p>
+              <p className="colorSttl">{ this.props['サブタイトル'] }</p>
             </div>
             <div className="result-detail">
-              <p className="result-price">{ this.props.price }</p>
-              <p>{ this.props.category }</p>
-              <p>{ this.props.color }</p>
+              <p className="result-price">{ this.props['価格'] }</p>
+              <p>{ this.props['分類'] }</p>
+              <p>{ this.props['色'] }</p>
             </div>
           </div>
         </div>
         <div className="result-btn">
           <button>いいね</button>
-          <a className="btn-link" href={this.props.link}>公式サイトへ</a>
+          <a className="btn-link" href={this.props['URL']}>公式サイトへ</a>
         </div>
       </div> 
     )
