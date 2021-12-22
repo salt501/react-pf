@@ -4,8 +4,9 @@ import './reset.css';
 import './common.css';
 import './index.css';
 import './searched.css';
+import { ScrollToTopOnMount } from './App';
 
-class SearchedPage extends React.Component{
+export default class SearchedPage extends React.Component{
   constructor(props) {
     super(props);
 
@@ -48,17 +49,17 @@ class SearchedPage extends React.Component{
           <div className="header-all">
             <nav>
               <ul className="header-list">
-                <li><a href="../public/index.html/#search">検索</a></li>
-                <li><a href="../public/index.html/#new">新作情報</a></li>
-                <li><a href="../public/index.html/#ranking">ランキング</a></li>
-                <li><a href="../public/index.html/#news">お知らせ</a></li>
+                <li><a href="/#search">検索</a></li>
+                <li><a href="/#new">新作情報</a></li>
+                <li><a href="/#ranking">ランキング</a></li>
+                <li><a href="/#news">お知らせ</a></li>
               </ul>
             </nav>
           </div>
         </header>
 
         <main>
-          <section className="searched">
+          <section className="searched" id="searched">
             <div className="searched-all">
               <div className="result-title">
                 <h2 className="font2">検索結果</h2>
@@ -95,6 +96,7 @@ class SearchedItem extends React.Component{
   render() {
     return (
       <div className="result-all">
+        <ScrollToTopOnMount/>
         <div className="result-img">
           <img src={ this.props['画像URL'] } alt="検索画像" />
         </div>
@@ -121,8 +123,6 @@ class SearchedItem extends React.Component{
     )
   }
 }
-
-export default SearchedPage;
 
 ReactDOM.render(
   SearchedPage, document.getElementById('root')
