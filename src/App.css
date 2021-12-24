@@ -60,6 +60,7 @@
 
 .search-form table tr td {
   padding: 0 10px 30px 0;
+  font-size: 17px;
 }
 
 .last {
@@ -72,6 +73,11 @@
 .last:hover {
   background-color: #efefef;
   cursor: pointer;
+}
+
+select{
+  width: 100px;
+  padding: 5px;
 }
 
 /* 新作情報 */

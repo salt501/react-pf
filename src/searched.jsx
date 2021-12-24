@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from 'react-dom';
 import './reset.css';
 import './common.css';
@@ -9,14 +9,11 @@ import { ScrollToTopOnMount } from './App';
 export default class SearchedPage extends React.Component{
   constructor(props) {
     super(props);
-
+    
     let searchedItem = [
-      { 画像URL: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dw894f7beb/assets/Y0002959/Y0002959_F000355155_E01_ZHC.jpg",名前: "ディオール ヴェルニ", ブランド: "Dior", 色タイトル: "テュララ", サブタイトル: "", 価格: "¥3,300", 分類: "エナメル", 色: "ピンク", URL: "https://www.dior.com/ja_jp/products/beauty-Y0996356?gclid=Cj0KCQiAsqOMBhDFARIsAFBTN3fqQQmvbPjO2nEsI2kGxR7wkeNkQa6IS1bSMejYRCOHz0_pdCLo9-saAjS6EALw_wcB&gclsrc=aw.ds" },
-      { 画像URL: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dw894f7beb/assets/Y0002959/Y0002959_F000355155_E01_ZHC.jpg", 名前: "ディオール ヴェルニ", ブランド: "Dior", 色タイトル: "テュララ", サブタイトル: "", 価格: "¥3,300", 分類: "エナメル", 色: "ピンク", URL: "https://www.dior.com/ja_jp/products/beauty-Y0996356?gclid=Cj0KCQiAsqOMBhDFARIsAFBTN3fqQQmvbPjO2nEsI2kGxR7wkeNkQa6IS1bSMejYRCOHz0_pdCLo9-saAjS6EALw_wcB&gclsrc=aw.ds" }
-      
-    ];
-
-    this.state = { searchedItem: searchedItem };
+      { 画像URL: "", 名前: "", ブランド: "", 色タイトル: "", サブタイトル: "", 価格: "", ジャンル: "", 色: "", URL: "" }];
+    
+    this.state = { searchedItem: searchedItem};
 
     var xhr = new XMLHttpRequest();
     xhr.open('GET', './output.json');
@@ -25,22 +22,35 @@ export default class SearchedPage extends React.Component{
         if (xhr.readyState === 4 && xhr.status === 200) {
           let json_data = JSON.parse(xhr.responseText);
 
+          const urlParams = new URL(window.location.href);
+          const prm = new URLSearchParams(urlParams.search);
+          let price = prm.get('価格');
+          
+          
           // searchedItemの新しい配列を作成する
           searchedItem = json_data.filter(
-            function(obj){
-              return obj['ブランド'] === "Dior";
+            function (obj) {
+              return obj['ブランド'] === prm.get('ブランド');
+            }
+          ).filter(
+            function (obj) {
+              return obj['ジャンル'] === prm.get('ジャンル');
+            }
+          ).filter(
+            function (obj) {
+              return obj['色'] === prm.get('色');
+            }
+          ).filter(
+            function (obj) {
+              return obj['価格'] === Number(price);
             }
           )
-          this.setState({ searchedItem: searchedItem });
-          console.log(searchedItem);
+          this.setState({searchedItem:searchedItem});
+
         };
-        
       }
-    
     xhr.send();
   }
-    
-
 
   render() {
     return (
@@ -60,6 +70,7 @@ export default class SearchedPage extends React.Component{
 
         <main>
           <section className="searched" id="searched">
+            <ScrollToTopOnMount />
             <div className="searched-all">
               <div className="result-title">
                 <h2 className="font2">検索結果</h2>
@@ -68,10 +79,10 @@ export default class SearchedPage extends React.Component{
 
               <div className="searched-list">
                 <div className="searched-item">
-                  <p></p>
-                  <p></p>
-                  <p></p>
-                  <p></p>
+                  <p>ブランド：</p>
+                  <p>カテゴリー：</p>
+                  <p>カラー：</p>
+                  <p>価格：¥</p>
                 </div>
               </div>
             </div>
@@ -79,7 +90,7 @@ export default class SearchedPage extends React.Component{
 
           <section className="result">
             {this.state.searchedItem.map(
-              (s) => <SearchedItem 画像URL={s['画像URL']} 名前={s['名前']} ブランド={s['ブランド']} 色タイトル={s['色タイトル']} サブタイトル={s['サブタイトル']} 価格={s['価格']} 分類={s['分類']} 色={s['色']} URL={s['URL']}/>
+              (s) => <SearchedItem 画像URL={s['画像URL']} 名前={s['名前']} ブランド={s['ブランド']} 色タイトル={s['色タイトル']} サブタイトル={s['サブタイトル']} 価格={s['価格']} ジャンル={s['ジャンル']} 色={s['色']} URL={s['URL']}/>
             )}
           </section>
         </main>
@@ -96,7 +107,7 @@ class SearchedItem extends React.Component{
   render() {
     return (
       <div className="result-all">
-        <ScrollToTopOnMount/>
+        
         <div className="result-img">
           <img src={ this.props['画像URL'] } alt="検索画像" />
         </div>
@@ -109,9 +120,9 @@ class SearchedItem extends React.Component{
               <p className="colorSttl">{ this.props['サブタイトル'] }</p>
             </div>
             <div className="result-detail">
-              <p className="result-price">{ this.props['価格'] }</p>
-              <p>{ this.props['分類'] }</p>
-              <p>{ this.props['色'] }</p>
+              <p className="result-price">¥{ this.props['価格'] }</p>
+              <p>カテゴリー：{ this.props['ジャンル'] }</p>
+              <p>カラー：{ this.props['色'] }</p>
             </div>
           </div>
         </div>
@@ -123,6 +134,7 @@ class SearchedItem extends React.Component{
     )
   }
 }
+
 
 ReactDOM.render(
   SearchedPage, document.getElementById('root')

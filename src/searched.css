@@ -21,6 +21,7 @@
 }
 .result-img{
   width: 30%;
+  margin: auto;
 }
 
 .result-container{
@@ -74,4 +75,9 @@
 
 .colorttl{
   font-size: 18px;
+}
+
+.searched-item{
+  text-align: center;
+  line-height: 2;
 }
