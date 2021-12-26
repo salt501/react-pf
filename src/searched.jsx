@@ -11,7 +11,7 @@ export default class SearchedPage extends React.Component{
     super(props);
     
     let searchedItem = [
-      { 画像URL: "", 名前: "", ブランド: "", 色タイトル: "", サブタイトル: "", 価格: "", ジャンル: "", 色: "", URL: "" }];
+      { 画像URL: "", 名前: "", ブランド: "", 番号:"", 色タイトル: "", サブタイトル: "", 価格: "", ジャンル: "", 色: "", URL: "" }];
     
     this.state = { searchedItem: searchedItem};
 
@@ -22,27 +22,21 @@ export default class SearchedPage extends React.Component{
         if (xhr.readyState === 4 && xhr.status === 200) {
           let json_data = JSON.parse(xhr.responseText);
 
+          // クエリ文字列の読み込み
           const urlParams = new URL(window.location.href);
           const prm = new URLSearchParams(urlParams.search);
-          let price = prm.get('価格');
+          let hprice = prm.get('上限価格');
+          let lprice = prm.get('下限価格');
           
           
           // searchedItemの新しい配列を作成する
           searchedItem = json_data.filter(
             function (obj) {
-              return obj['ブランド'] === prm.get('ブランド');
-            }
-          ).filter(
-            function (obj) {
-              return obj['ジャンル'] === prm.get('ジャンル');
-            }
-          ).filter(
-            function (obj) {
-              return obj['色'] === prm.get('色');
-            }
-          ).filter(
-            function (obj) {
-              return obj['価格'] === Number(price);
+              return (!prm.get('ブランド') || obj['ブランド'] === prm.get('ブランド'))
+                && (!prm.get('ジャンル') || obj['ジャンル'] === prm.get('ジャンル'))
+                && (!prm.get('色') || obj['色'] == prm.get('色'))
+                && (!Number(hprice) || obj['価格'] <= Number(hprice))
+                && (!Number(lprice) || obj['価格'] >= Number(lprice));
             }
           )
           this.setState({searchedItem:searchedItem});
@@ -61,7 +55,7 @@ export default class SearchedPage extends React.Component{
               <ul className="header-list">
                 <li><a href="/#search">検索</a></li>
                 <li><a href="/#new">新作情報</a></li>
-                <li><a href="/#ranking">ランキング</a></li>
+                
                 <li><a href="/#news">お知らせ</a></li>
               </ul>
             </nav>
@@ -90,7 +84,7 @@ export default class SearchedPage extends React.Component{
 
           <section className="result">
             {this.state.searchedItem.map(
-              (s) => <SearchedItem 画像URL={s['画像URL']} 名前={s['名前']} ブランド={s['ブランド']} 色タイトル={s['色タイトル']} サブタイトル={s['サブタイトル']} 価格={s['価格']} ジャンル={s['ジャンル']} 色={s['色']} URL={s['URL']}/>
+              (s) => <SearchedItem 画像URL={s['画像URL']} 名前={s['名前']} ブランド={s['ブランド']} 番号={s['番号']} 色タイトル={s['色タイトル']} サブタイトル={s['サブタイトル']} 価格={s['価格']} ジャンル={s['ジャンル']} 色={s['色']} URL={s['URL']}/>
             )}
           </section>
         </main>
@@ -116,7 +110,7 @@ class SearchedItem extends React.Component{
           <div className="result-txt">
             <h4 className="font4">{ this.props['ブランド'] }</h4>
             <div className="txt-inner">
-              <p className="colorttl">{ this.props['色タイトル'] }</p>
+              <p className="colorttl">{ this.props['番号']} { this.props['色タイトル'] }</p>
               <p className="colorSttl">{ this.props['サブタイトル'] }</p>
             </div>
             <div className="result-detail">
@@ -127,7 +121,7 @@ class SearchedItem extends React.Component{
           </div>
         </div>
         <div className="result-btn">
-          <button>いいね</button>
+          
           <a className="btn-link" href={this.props['URL']}>公式サイトへ</a>
         </div>
       </div> 

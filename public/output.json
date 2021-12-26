@@ -114,7 +114,7 @@
         "番号": "659",
         "色タイトル": "ラッキー",
         "サブタイトル": "トニック ピンク",
-        "色": "ピンク",
+        "色": ["ピンク"],
         "画像URL": "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dw273db155/assets/Y0996356/Y0996356_F000355659_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870",
         "価格": 3300,
         "URL": "https://www.dior.com/ja_jp/products/beauty-Y0996356?gclid=Cj0KCQiAsqOMBhDFARIsAFBTN3fqQQmvbPjO2nEsI2kGxR7wkeNkQa6IS1bSMejYRCOHz0_pdCLo9-saAjS6EALw_wcB&gclsrc=aw.ds"
@@ -138,7 +138,7 @@
         "番号": "748",
         "色タイトル": "アザール",
         "サブタイトル": "ミステリアス ローズウッド",
-        "色": "レッド ピンク",
+        "色": ["レッド", "ピンク"],
         "画像URL": "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwb29b5ae8/assets/Y0996356/Y0996356_F000355748_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870",
         "価格": 3300,
         "URL": "https://www.dior.com/ja_jp/products/beauty-Y0996356?gclid=Cj0KCQiAsqOMBhDFARIsAFBTN3fqQQmvbPjO2nEsI2kGxR7wkeNkQa6IS1bSMejYRCOHz0_pdCLo9-saAjS6EALw_wcB&gclsrc=aw.ds"

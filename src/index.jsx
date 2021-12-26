@@ -21,13 +21,8 @@ export default class Page extends React.Component{
       { img: "", title: "" },
       { img: "", title: "" }
     ];
-    let likedItem = [
-      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", bland: "", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" },
-      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" },
-      { img: "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwf31131b4/assets/Y0996356/Y0996356_F000355080_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870", bland: "ブランド", ttl: "タイトル", colorttl: "カラータイトル", colorSttl: "カラー" }
-    ];
 
-    this.state = { news: news, newItem: newItem, likedItem: likedItem };
+    this.state = { news: news, newItem: newItem};
 
     var xhr = new XMLHttpRequest();
     xhr.open('GET', './output.json');
@@ -63,7 +58,7 @@ export default class Page extends React.Component{
               <ul className="header-list">
                 <li><a href="#search">検索</a></li>
                 <li><a href="#new">新作情報</a></li>
-                <li><a href="#ranking">ランキング</a></li>
+                
                 <li><a href="#news">お知らせ</a></li>
               </ul>
             </nav>
@@ -106,13 +101,7 @@ export default class Page extends React.Component{
           </section>
 
           {/* ranking */}
-          <section id="ranking" className="ranking">
-            <h2 className="font2">良いねランキング</h2>
-            <div className="good-rank">
-              {this.state.likedItem.map(
-                (li) => <LikedItem img={li.img} ttl={li.ttl} bland={li.bland} colorttl={li.colorttl} colorSttl={li.colorSttl} />)}
-            </div>
-          </section>
+          
 
           <section id="news" className="news">
             <h2 className="font2">お知らせ</h2>
@@ -133,7 +122,6 @@ export default class Page extends React.Component{
               <ul className="footer-list">
                 <li><a href="#search">検索</a></li>
                 <li><a href="#new">新作情報</a></li>
-                <li><a href="#ranking">ランキング</a></li>
                 <li><a href="#news">お知らせ</a></li>
               </ul>
             </nav>
@@ -164,27 +152,6 @@ class NewItem extends React.Component{
 }
 
 // いいねランキングの要素
-class LikedItem extends React.Component{
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className="container">
-        <h3 className="font3">1位</h3>
-        <div className="container-img">
-          <img src={this.props.img} alt="ランク" />
-        </div>
-        <h3 className="font3">{this.props.ttl}</h3>
-        <h4 className="font4">
-          { this.props.bland }
-          <br />{this.props.colorttl}
-          <br />{ this.props.colorSttl }</h4>
-       </div>
-    )
-  }
-}
 
 // お知らせ
 class NewsItem extends React.Component{
@@ -227,12 +194,16 @@ const Func = () => {
     const index3 = prop3.selectedIndex;
     const result3 = prop3.options[index3].value;
 
-    const prop4 = document.form1['価格'];
+    const prop4 = document.form1['上限価格'];
     const index4 = prop4.selectedIndex;
     const result4 = prop4.options[index4].value;
 
-     arr = {
-      ブランド: result1, ジャンル: result2, 色: result3, 価格: result4
+    const prop5 = document.form1['下限価格'];
+    const index5 = prop5.selectedIndex;
+    const result5 = prop5.options[index5].value;
+
+    arr = {
+      ブランド: result1, ジャンル: result2, 色: result3, 上限価格: result4, 下限価格: result5
     };
     
     param = new URLSearchParams(arr).toString();
@@ -269,6 +240,7 @@ const Func = () => {
             </td>
             <td>
               <select name="ジャンル">
+                <option value="" label='未選択'></option>
                  <option value="エナメル">エナメル</option>
                   <option value="トップコート">トップコート</option>
                   <option value="ベースコート">ベースコート</option>
@@ -281,6 +253,7 @@ const Func = () => {
             </td>
             <td>
               <select name="色">
+                <option value="" label='未選択'></option>
                 <option value="ベージュ">ベージュ</option>
                 <option value="ブラウン">ブラウン</option>
                 <option value="オレンジ">オレンジ</option>
@@ -305,11 +278,19 @@ const Func = () => {
               <p>価格</p>
             </td>
             <td>
-              <select name="価格">
-                <option value="1650">¥1,650</option>
-                <option value="2200">¥2,200</option>
-                <option value="3300">¥3,300</option>
-                <option value="3520">¥3,520</option>
+              <select name="下限価格">
+                <option value="" label='未選択'></option>
+                <option value="1000">¥1,000~</option>
+                <option value="2000">¥2,000~</option>
+                <option value="3000">¥3,000~</option>
+                <option value="4000">¥4,000~</option>
+              </select> 〜&nbsp;
+              <select name="上限価格">
+                <option value="" label='未選択'></option>
+                <option value="1000">~¥1,000</option>
+                <option value="2000">~¥2,000</option>
+                <option value="3000">~¥3,000</option>
+                <option value="4000">~¥4,000</option>
               </select>
             </td>
           </tr>
