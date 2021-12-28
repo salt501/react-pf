@@ -4,9 +4,15 @@ a{
   color: #444;
 }
 
-section{
-  padding: 77px 0 50px 0;
+main{
+  background-color: #f9f7eb;
+}
+
+.inner{
+  padding: 77px 0 0;
   margin: 0 auto;
+  width: 80%;
+  background-color: #fff;
 }
 
 .font2{
@@ -32,15 +38,14 @@ section{
   width: 100%;
   margin: 0 auto;
   font-size: 30px;
-  background-color: #e0bbc5;
+  background-color: #fff;
   position: fixed;
   z-index: 10;
-  box-shadow: 0 2px 9px 2px #d6b2bb;
 }
 
 .header-list{
   text-align: center;
-  margin: 20px auto;
+  padding: 10px 0;
   
 }
 
@@ -50,11 +55,11 @@ section{
   padding: 5px 40px;
   color: #444;
   font-size: 18px;
-  border-right: 3px solid #edf0f5;
+  border-right: 3px solid #e0bbc5;
 }
 
 .header-list li:nth-of-type(1){
-  border-left: 3px solid #edf0f5;
+  border-left: 3px solid #e0bbc5;
 }
 
 

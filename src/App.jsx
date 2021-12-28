@@ -19,7 +19,7 @@ export class App extends React.Component{
         <BrowserRouter>
           <div>
             <Link to="/"></Link>
-            
+            <Link to="/searched"></Link>
             <Routes>
               <Route path='/' element={<Page/>} ></Route>
               <Route path='/searched' element={<SearchedPage />}></Route>

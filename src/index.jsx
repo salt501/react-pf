@@ -4,11 +4,13 @@ import logo from './logo.svg';
 import './reset.css';
 import './App.css';
 import './common.css';
+import 'react-tabs/style/react-tabs.css';
 import { render } from '@testing-library/react';
-import SearchedPage from './searched';
-import { Link, useNavigate, useLocation, useParams} from "react-router-dom";
-import { App } from './App'
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
+
+let style;
 export default class Page extends React.Component{
   constructor(props) {
     super(props);
@@ -17,12 +19,22 @@ export default class Page extends React.Component{
       { date: "2021/01/01", text: "新しい情報を追加しました" },
       { date: "2021/01/01", text: "新しい情報を追加しました" }];
     let newItem = [
-      { img: "", title: "" },
-      { img: "", title: "" },
-      { img: "", title: "" }
+      { img: "", link:"", title: ""},
+      { img: "", link:"", title: "" },
+      { img: "", link:"", title: "" }
     ];
 
-    this.state = { news: news, newItem: newItem};
+    let blandSearch = [
+      { blandImg: "./Dior.png", bland: "Dior", },
+      { blandImg: "./CHANEL.png", bland: "CHANEL", },
+      { blandImg: "./YSL.png", bland: "イブ・サンローラン", },
+      { blandImg: "./RMK.png", bland: "RMK", },
+      { blandImg: "./ルナソル.png", bland: "LUNASOL", }
+    ]
+   
+    
+
+    this.state = { news: news, newItem: newItem, blandSearch: blandSearch,colorSearch:colorSearch};
 
     var xhr = new XMLHttpRequest();
     xhr.open('GET', './output.json');
@@ -32,11 +44,17 @@ export default class Page extends React.Component{
           let json_data = JSON.parse(xhr.responseText);
 
           newItem = [
-            { img: json_data[json_data.length - 1].画像URL,
+            {
+              img: json_data[json_data.length - 1].画像URL,
+              link:json_data[json_data.length-1].URL,
               title: json_data[json_data.length - 1].ブランド },
-            { img: json_data[json_data.length - 2].画像URL,
+            {
+              img: json_data[json_data.length - 2].画像URL,
+              link:json_data[json_data.length-2].URL,
               title: json_data[json_data.length - 2].ブランド },
-            { img: json_data[json_data.length - 3].画像URL,
+            {
+              img: json_data[json_data.length - 3].画像URL,
+              link:json_data[json_data.length-3].URL,
               title: json_data[json_data.length - 3].ブランド }  
           ];
           this.setState({ newItem: newItem});
@@ -47,6 +65,12 @@ export default class Page extends React.Component{
       }
     
     xhr.send();
+    function css() {
+      style = {
+        width: "90%",
+        margin: "150 auto 0"
+      }
+    }
   }
   
   render() {
@@ -80,38 +104,70 @@ export default class Page extends React.Component{
 
           {/* search */}
           <section id="search" className="search">
-            <div className="search-inner">
-              <h2 className="font2">検索</h2>
-              <div className="search-form">
-                <form action="" method="get">
-                  <Func/>
-               </form>
+            <div className="inner">
+              <div className="search-inner">
+                <h2 className="font2">詳しく検索</h2>
+                <div className="search-form">
+                  <form action="" method="get">
+                    <Func/>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ざっくり検索 */}
+          <section id="detail-search" className="detail-search">
+            <div className="inner">
+              <h2 className="font2">ざっくり検索</h2>
+              <div className="detail-inner">
+                <Tabs>
+                  <TabList>
+                    <Tab><h5 className="font5">ブランドで検索</h5></Tab>
+                    <Tab><h5 className="font5">色で検索</h5></Tab>
+                  </TabList>
+                  <TabPanel>
+                    <div className="bland-search">
+                      {this.state.blandSearch.map(
+                        (bs) => <BlandSearch blandImg={bs.blandImg} bland={bs.bland} />
+                      )}
+                    </div>
+                  </TabPanel>
+                  <TabPanel>
+                    <div className="color-search">
+                      {this.state.colorSearch.map(
+                        (cs) => <ColorSearch colorImg={cs.colorImg} color={cs.color} />
+                      )}
+                    </div>
+                  </TabPanel>
+                </Tabs>
               </div>
             </div>
           </section>
 
           {/* newItem */}
           <section id="new" className="new">
-            <h2 className="font2">新作情報</h2>
-            <div className="info">
-              {this.state.newItem.map(
-                (ni) => <NewItem img={ni.img} title={ni.title} />
-              )}
+            <div className="inner">
+              <h2 className="font2">新作情報</h2>
+              <div className="info">
+                {this.state.newItem.map(
+                  (ni) => <NewItem img={ni.img} link={ ni.link} title={ni.title} />
+                )}
+              </div>
             </div>
           </section>
 
-          {/* ranking */}
-          
-
+          {/* news */}
           <section id="news" className="news">
-            <h2 className="font2">お知らせ</h2>
-            <div className="news-inner">
-              <table>
-                {this.state.news.map(
-                  (n) => <NewsItem date={n.date} text={n.text} />
-                )}
-                
-              </table>
+            <div className="inner">
+              <h2 className="font2">お知らせ</h2>
+              <div className="news-inner">
+                <table>
+                  {this.state.news.map(
+                    (n) => <NewsItem date={n.date} text={n.text} />
+                  )}
+                </table>
+              </div>
             </div>
           </section>
         </main>
@@ -143,15 +199,15 @@ class NewItem extends React.Component{
     return (
       <div className="container">
         <div className="container-img">
-          <img src={this.props.img} alt="新作" />
+          <a href={this.props.link}>
+            <img src={this.props.img} alt="新作" />
+          </a>
         </div>
         <h3 className="font3">{ this.props.title }</h3>
       </div>
     )
   }
 }
-
-// いいねランキングの要素
 
 // お知らせ
 class NewsItem extends React.Component{
@@ -169,11 +225,9 @@ class NewsItem extends React.Component{
   }
 }
 
+// 検索
 let arr;
 let param;
-let to={pathname:"",search:""};
-
-
 const Func = () => {
   
   const Navigate = useNavigate();
@@ -208,10 +262,7 @@ const Func = () => {
     
     param = new URLSearchParams(arr).toString();
 
-    to = {
-      pathname: '/searched',
-      search: "?"+param
-    };
+    window.location = '/searched'+'?'+param;
   }
   
   
@@ -296,12 +347,90 @@ const Func = () => {
           </tr>
         </table> 
       </form>
-      <Link to={to}><input className="last" type="submit" value="検索" onClick={onClick}/></Link>
-       <input className="last" type="reset" value="リセット" />
+      <input className="last" type="button" value="検索" onClick={onClick}/>
+      <input className="last" type="reset" value="リセット" />
     </div>
   )
-  
 }
+
+// ブランド検索
+
+class BlandSearch extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  onClick() {
+    let banana = document.getElementsByName("button1").value;
+    alert(banana);
+    arr = {
+      ブランド: banana
+    };
+    
+    param = new URLSearchParams(arr).toString();
+
+    window.location = '/searched' + '?' + param;
+  }
+
+  render() {
+    return (
+      <div className="search-item">
+        <button type="button" name="button1" value="ブランド" onClick={this.props.onClick}>
+          <div className="search-img">
+            <img src={this.props.blandImg} alt="ブランド画像" />
+          </div>
+          <h3 name="blandSearch" className="blandTitle font3">{this.props.bland}</h3>
+        </button > 
+      </div >
+    )
+  }
+}
+
+
+// カラー検索
+let colorSearch = [
+  { colorImg: "./beige.png", color: "ベージュ" },
+  { colorImg: "./brown.png", color: "ブラウン" },
+  { colorImg: "./orange.png", color: "オレンジ" },
+  { colorImg: "./pink.png", color: "ピンク" },
+  { colorImg: "./red.png", color: "レッド" },
+  { colorImg: "./bordeaux.png", color: "ボルドー" },
+  { colorImg: "./purple.png", color: "パープル" },
+  { colorImg: "./green.png", color: "グリーン" },
+  { colorImg: "./blue.png", color: "ブルー" },
+  { colorImg: "./black.png", color: "ブラック" },
+  { colorImg: "./white.png", color: "ホワイト" },
+  { colorImg: "./glay.png", color: "グレー" },
+  { colorImg: "./silver.png", color: "シルバー" },
+  { colorImg: "./gold.png", color: "ゴールド" },
+  { colorImg: "./perl.png", color: "パール" },
+  { colorImg: "./clear.png", color: "クリア" }
+]
+
+const ColorSearch = (props) => {
+  const onClick = () => {
+    let orange = document.getElementsByName("button2").value;
+    alert(orange);
+    arr = {
+      色: orange
+    };
+    
+    param = new URLSearchParams(arr).toString();
+
+    window.location = '/searched' + '?' + param;
+  }
+  
+  return (
+    <div className="search-item">
+      <button type="button" name="button2" value={props.color} onClick={onClick}>
+        <div className="search-img">
+          <img src={props.colorImg} alt="カラー画像" />
+        </div>
+        <h3 name="colorSearch" className="color font3">{props.color}</h3>
+      </button >
+    </div >
+  )
+}
+
 
 
 ReactDOM.render(

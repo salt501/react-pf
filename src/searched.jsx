@@ -5,6 +5,7 @@ import './common.css';
 import './index.css';
 import './searched.css';
 import { ScrollToTopOnMount } from './App';
+import { useSearchParams } from "react-router-dom";
 
 export default class SearchedPage extends React.Component{
   constructor(props) {
@@ -12,8 +13,8 @@ export default class SearchedPage extends React.Component{
     
     let searchedItem = [
       { 画像URL: "", 名前: "", ブランド: "", 番号:"", 色タイトル: "", サブタイトル: "", 価格: "", ジャンル: "", 色: "", URL: "" }];
-    
-    this.state = { searchedItem: searchedItem};
+    let params = { ブランド: "", ジャンル: "", 色: "", 価格: ""};
+    this.state = { searchedItem: searchedItem, params: params};
 
     var xhr = new XMLHttpRequest();
     xhr.open('GET', './output.json');
@@ -28,7 +29,8 @@ export default class SearchedPage extends React.Component{
           let hprice = prm.get('上限価格');
           let lprice = prm.get('下限価格');
           
-          
+          params = { ブランド: prm.get('ブランド'), ジャンル: prm.get('ジャンル'), 色: prm.get('色'), 価格: prm.get('下限価格') + "~" + prm.get('上限価格') };
+
           // searchedItemの新しい配列を作成する
           searchedItem = json_data.filter(
             function (obj) {
@@ -39,8 +41,10 @@ export default class SearchedPage extends React.Component{
                 && (!Number(lprice) || obj['価格'] >= Number(lprice));
             }
           )
-          this.setState({searchedItem:searchedItem});
+          
+          this.setState({ searchedItem: searchedItem, params: params });
 
+          console.log(params['ブランド'])
         };
       }
     xhr.send();
@@ -64,30 +68,60 @@ export default class SearchedPage extends React.Component{
 
         <main>
           <section className="searched" id="searched">
-            <ScrollToTopOnMount />
-            <div className="searched-all">
-              <div className="result-title">
-                <h2 className="font2">検索結果</h2>
-                <h3 className="font3">◯件</h3>
-              </div>
+            <div className="inner">
+              <ScrollToTopOnMount />
+              <div className="searched-all">
+                <div className="result-title">
+                  <h2 className="font2">検索結果</h2>
+                  <h3 className="font3">{ this.state.searchedItem.length }件</h3>
+                </div>
 
-              <div className="searched-list">
-                <div className="searched-item">
-                  <p>ブランド：</p>
-                  <p>カテゴリー：</p>
-                  <p>カラー：</p>
-                  <p>価格：¥</p>
+                <div className="searched-list">
+                  <div className="searched-item">
+                    <table>
+                      <tr>
+                        <td className="left">ブランド：</td>
+                        <td>{ this.state.params['ブランド']}</td>
+                      </tr>
+                      <tr>
+                        <td className="left">カテゴリー：</td>
+                        <td>{ this.state.params['ジャンル']}</td>
+                      </tr>
+                      <tr>
+                        <td className="left">カラー：</td>
+                        <td>{ this.state.params['色']}</td>
+                      </tr>
+                      <tr>
+                        <td className="left">価格：</td>
+                        <td>¥{ this.state.params['価格']}</td>
+                      </tr>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
 
           <section className="result">
-            {this.state.searchedItem.map(
-              (s) => <SearchedItem 画像URL={s['画像URL']} 名前={s['名前']} ブランド={s['ブランド']} 番号={s['番号']} 色タイトル={s['色タイトル']} サブタイトル={s['サブタイトル']} 価格={s['価格']} ジャンル={s['ジャンル']} 色={s['色']} URL={s['URL']}/>
-            )}
+            <div className="inner">
+              {this.state.searchedItem.map(
+                (s) => <SearchedItem 画像URL={s['画像URL']} 名前={s['名前']} ブランド={s['ブランド']} 番号={s['番号']} 色タイトル={s['色タイトル']} サブタイトル={s['サブタイトル']} 価格={s['価格']} ジャンル={s['ジャンル']} 色={s['色']} URL={s['URL']} />
+              )}
+            </div>
           </section>
         </main>
+
+        <footer>
+          <div className="footer-inner">
+            <nav>
+              <ul className="footer-list">
+                <li><a href="#search">検索</a></li>
+                <li><a href="#new">新作情報</a></li>
+                <li><a href="#news">お知らせ</a></li>
+              </ul>
+            </nav>
+          </div>
+        </footer>
       </div>
     )
   }
@@ -121,7 +155,6 @@ class SearchedItem extends React.Component{
           </div>
         </div>
         <div className="result-btn">
-          
           <a className="btn-link" href={this.props['URL']}>公式サイトへ</a>
         </div>
       </div> 

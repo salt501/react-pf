@@ -1,9 +1,11 @@
 @charset "utf-8";
-.result-all{
-  width: 80%;
-  margin: 0 auto 30px;
+.searched .inner{
+  width: 70%;
 }
 
+.result .inner{
+  width: 70%;
+}
 .result-title{
   text-align: center;
   display: flex;
@@ -15,9 +17,10 @@
   font-size: 30px;
 }
 .result-all{
+  margin-top: 30px;
   border: 1px solid #555;
   display: flex;
-  gap: 5%;
+  gap: 10%;
 }
 .result-img{
   width: 30%;
@@ -78,6 +81,12 @@
 }
 
 .searched-item{
+  display: flex;
+  justify-content: center;
   text-align: center;
   line-height: 2;
+}
+
+.searched-item .left{
+  text-align: right;
 }
