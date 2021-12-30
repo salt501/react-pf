@@ -9,30 +9,18 @@ import { render } from '@testing-library/react';
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-
-let style;
 export default class Page extends React.Component{
   constructor(props) {
     super(props);
     let news = [
-      { date: "2021/01/01", text: "新しい情報を追加しました" },
-      { date: "2021/01/01", text: "新しい情報を追加しました" },
-      { date: "2021/01/01", text: "新しい情報を追加しました" }];
+      { date: "2021/12/30", text: "RMKの新作情報を追加しました" },
+      { date: "", text: "" },
+      { date: "", text: "" }];
     let newItem = [
-      { img: "", link:"", title: ""},
-      { img: "", link:"", title: "" },
-      { img: "", link:"", title: "" }
+      { img: "", link:"", title: "", day:""},
+      { img: "", link:"", title: "", day:""},
+      { img: "", link:"", title: "", day:""}
     ];
-
-    let blandSearch = [
-      { blandImg: "./Dior.png", bland: "Dior", },
-      { blandImg: "./CHANEL.png", bland: "CHANEL", },
-      { blandImg: "./YSL.png", bland: "イブ・サンローラン", },
-      { blandImg: "./RMK.png", bland: "RMK", },
-      { blandImg: "./ルナソル.png", bland: "LUNASOL", }
-    ]
-   
-    
 
     this.state = { news: news, newItem: newItem, blandSearch: blandSearch,colorSearch:colorSearch};
 
@@ -46,31 +34,29 @@ export default class Page extends React.Component{
           newItem = [
             {
               img: json_data[json_data.length - 1].画像URL,
-              link:json_data[json_data.length-1].URL,
-              title: json_data[json_data.length - 1].ブランド },
+              link: json_data[json_data.length - 1].URL,
+              title: json_data[json_data.length - 1].ブランド,
+              day: json_data[json_data.length - 1].発売日
+            },
             {
               img: json_data[json_data.length - 2].画像URL,
-              link:json_data[json_data.length-2].URL,
-              title: json_data[json_data.length - 2].ブランド },
+              link: json_data[json_data.length - 2].URL,
+              title: json_data[json_data.length - 2].ブランド,
+              day: json_data[json_data.length - 2].発売日
+            },
             {
               img: json_data[json_data.length - 3].画像URL,
-              link:json_data[json_data.length-3].URL,
-              title: json_data[json_data.length - 3].ブランド }  
+              link: json_data[json_data.length - 3].URL,
+              title: json_data[json_data.length - 3].ブランド,
+              day: json_data[json_data.length - 3].発売日
+            }
           ];
           this.setState({ newItem: newItem});
-
-
           
         }
       }
     
     xhr.send();
-    function css() {
-      style = {
-        width: "90%",
-        margin: "150 auto 0"
-      }
-    }
   }
   
   render() {
@@ -81,8 +67,8 @@ export default class Page extends React.Component{
             <nav>
               <ul className="header-list">
                 <li><a href="#search">検索</a></li>
+                <li><a href="#roughly-search">ざっくり検索</a></li>
                 <li><a href="#new">新作情報</a></li>
-                
                 <li><a href="#news">お知らせ</a></li>
               </ul>
             </nav>
@@ -117,10 +103,10 @@ export default class Page extends React.Component{
           </section>
 
           {/* ざっくり検索 */}
-          <section id="detail-search" className="detail-search">
+          <section id="roughly-search" className="roughly-search">
             <div className="inner">
               <h2 className="font2">ざっくり検索</h2>
-              <div className="detail-inner">
+              <div className="roughly-inner">
                 <Tabs>
                   <TabList>
                     <Tab><h5 className="font5">ブランドで検索</h5></Tab>
@@ -151,7 +137,7 @@ export default class Page extends React.Component{
               <h2 className="font2">新作情報</h2>
               <div className="info">
                 {this.state.newItem.map(
-                  (ni) => <NewItem img={ni.img} link={ ni.link} title={ni.title} />
+                  (ni) => <NewItem img={ni.img} link={ni.link} title={ni.title} day={ni.day}/>
                 )}
               </div>
             </div>
@@ -174,13 +160,16 @@ export default class Page extends React.Component{
  
         <footer>
           <div className="footer-inner">
-            <nav>
-              <ul className="footer-list">
-                <li><a href="#search">検索</a></li>
-                <li><a href="#new">新作情報</a></li>
-                <li><a href="#news">お知らせ</a></li>
-              </ul>
-            </nav>
+            <div className="contact">
+              <h5>contact</h5>
+              <a href="https://twitter.com/5k_o4">
+                <div className="contact-img">
+                  <img src="./twitter-logo.png" alt="twitterロゴ" />
+                </div>
+              </a>
+              <p>ご要望やお問い合わせに関しては、<br />制作主のTwitterのDMにて受け付けております。</p>
+            </div>
+            <p className="copyright">©︎ 2021 Shiori Inc.</p>
           </div>
         </footer>
       </div>
@@ -203,7 +192,7 @@ class NewItem extends React.Component{
             <img src={this.props.img} alt="新作" />
           </a>
         </div>
-        <h3 className="font3">{ this.props.title }</h3>
+        <h3 className="font3">{this.props.title}<br />{this.props.day}</h3>
       </div>
     )
   }
@@ -331,17 +320,17 @@ const Func = () => {
             <td>
               <select name="下限価格">
                 <option value="" label='未選択'></option>
-                <option value="1000">¥1,000~</option>
-                <option value="2000">¥2,000~</option>
-                <option value="3000">¥3,000~</option>
-                <option value="4000">¥4,000~</option>
+                <option value="1000">¥1,000</option>
+                <option value="2000">¥2,000</option>
+                <option value="3000">¥3,000</option>
+                <option value="4000">¥4,000</option>
               </select> 〜&nbsp;
               <select name="上限価格">
                 <option value="" label='未選択'></option>
-                <option value="1000">~¥1,000</option>
-                <option value="2000">~¥2,000</option>
-                <option value="3000">~¥3,000</option>
-                <option value="4000">~¥4,000</option>
+                <option value="1000">¥1,000</option>
+                <option value="2000">¥2,000</option>
+                <option value="3000">¥3,000</option>
+                <option value="4000">¥4,000</option>
               </select>
             </td>
           </tr>
@@ -354,35 +343,34 @@ const Func = () => {
 }
 
 // ブランド検索
-
-class BlandSearch extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  onClick() {
-    let banana = document.getElementsByName("button1").value;
-    alert(banana);
+let blandSearch = [
+  { blandImg: "./Dior.png", bland: "Dior", },
+  { blandImg: "./CHANEL.png", bland: "CHANEL", },
+  { blandImg: "./YSL.png", bland: "イヴ・サンローラン", },
+  { blandImg: "./RMK.png", bland: "RMK", },
+  { blandImg: "./ルナソル.png", bland: "LUNASOL", }
+];
+const BlandSearch = (props) => {
+  const onClick = () => {
+    let blandsearch = props.bland;
     arr = {
-      ブランド: banana
+      ブランド: blandsearch
     };
-    
     param = new URLSearchParams(arr).toString();
 
     window.location = '/searched' + '?' + param;
   }
 
-  render() {
-    return (
-      <div className="search-item">
-        <button type="button" name="button1" value="ブランド" onClick={this.props.onClick}>
-          <div className="search-img">
-            <img src={this.props.blandImg} alt="ブランド画像" />
-          </div>
-          <h3 name="blandSearch" className="blandTitle font3">{this.props.bland}</h3>
-        </button > 
-      </div >
-    )
-  }
+  return (
+    <div className="search-item">
+      <button type="button" name="button1" value="ブランド" onClick={onClick}>
+        <div className="search-img">
+          <img src={props.blandImg} alt="ブランド画像" />
+        </div>
+        <h3 name="blandSearch" className="blandTitle font3">{props.bland}</h3>
+      </button >
+    </div >
+  )
 }
 
 
@@ -408,12 +396,10 @@ let colorSearch = [
 
 const ColorSearch = (props) => {
   const onClick = () => {
-    let orange = document.getElementsByName("button2").value;
-    alert(orange);
+    let colorsearch = props.color;
     arr = {
-      色: orange
+      色: colorsearch
     };
-    
     param = new URLSearchParams(arr).toString();
 
     window.location = '/searched' + '?' + param;

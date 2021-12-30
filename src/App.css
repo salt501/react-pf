@@ -14,7 +14,8 @@
 }
 
 .top-title {
-  font-size: 70px;
+  display: inline-block;
+  font-size: 50px;
   padding-top: 70px;
 }
 
@@ -22,12 +23,12 @@
   display: inline-block;
   position: absolute;
   top: 400px;
-  left: 60%;
+  left: 65%;
 }
 
 .top-subtitle h2 {
   font-family: "Kiwi Maru", serif;
-  font-size: 55px;
+  font-size: 45px;
 }
 
 .top-subtitle p {
@@ -37,7 +38,7 @@
   padding-top: 60px;
 }
 
-/* 検索 */
+/* 詳しく検索 */
 .search-inner {
   width: 80%;
   margin: 0 auto;
@@ -66,13 +67,15 @@
 
 .last {
   font-size: 17px;
-  background: #fff;
+  border: unset;
+  background: #f3f3f3;
   padding: 5px 10px;
   margin: 0 10px 30px 0;
 }
 
 .last:hover {
-  background-color: #efefef;
+  background-color: #888;
+  color: #fff;
   cursor: pointer;
 }
 
@@ -81,7 +84,9 @@ select{
   padding: 5px;
 }
 
-.detail-inner{
+/* ざっくり検索 */
+
+.roughly-inner{
   width: 90%;
   margin: 0 auto;
   
@@ -90,9 +95,8 @@ select{
   display: flex;
   flex-wrap: wrap;
   gap: 10%;
-  background-color: rgb(236, 236, 236);
+  justify-content: center;
 }
-
 
 .search-item{
   width: 20%;
@@ -105,7 +109,7 @@ select{
   border: unset;
 }
 
-.search-item:hover{
+.search-item button:hover{
   cursor: pointer;
 }
 
@@ -120,29 +124,33 @@ select{
 }
 
 .color, .blandTitle{
-  font-size: 17px;
+  font-size: 15px;
+  font-weight: normal;
 }
 
 .blandTitle{
-  font-size: 15px;
   text-align: center;
 }
 
 /* 新作情報 */
 
+#new{
+  background-color: #f7f7f7;
+}
+
 .info{
-  width: 60%;
+  width: 70%;
   display: flex;
-  gap: 0 8%;
+  gap: 10%;
   margin: 0 auto;
 }
 
 .container {
+  width: 28%;
   display: block;
   text-align: center;
   padding: 30px;
-  border: 3px solid #b88b94;
-  outline: 2px dotted gold;
+  background-color: #fff;
   outline-offset: -10px;
 }
 

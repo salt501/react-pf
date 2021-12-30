@@ -138,7 +138,7 @@
         "番号": "748",
         "色タイトル": "アザール",
         "サブタイトル": "ミステリアス ローズウッド",
-        "色": ["レッド", "ピンク"],
+        "色": "レッド ピンク",
         "画像URL": "https://eco-beauty.dior.com/dw/image/v2/BDGF_PRD/on/demandware.static/-/Sites-master_dior/default/dwb29b5ae8/assets/Y0996356/Y0996356_F000355748_E01_ZHC.jpg?sw=870&sh=580&sm=fit&imwidth=870",
         "価格": 3300,
         "URL": "https://www.dior.com/ja_jp/products/beauty-Y0996356?gclid=Cj0KCQiAsqOMBhDFARIsAFBTN3fqQQmvbPjO2nEsI2kGxR7wkeNkQa6IS1bSMejYRCOHz0_pdCLo9-saAjS6EALw_wcB&gclsrc=aw.ds"
@@ -1293,7 +1293,7 @@
         "色": "ゴールド",
         "画像URL": "https://web.hh-online.jp/g_images/B2040060/B2040060_HB1_01_pdm.jpg",
         "価格": 2200,
-        "URL": "https:z/www.kanebo-cosmetics.jp/lunasol/product/details/pointmake/p0501009/"
+        "URL": "https:/www.kanebo-cosmetics.jp/lunasol/product/details/pointmake/p0501009/"
     },
     {
         "ブランド": "LUNASOL",
@@ -1558,5 +1558,31 @@
         "画像URL": "https://kao-h.assetsadobe3.com/is/image/content/dam/sites/kanebo/www-kanebo-cosmetics-jp/lunasol/renew/details/pointmake/p0501007/thumbnail.png?fmt=png-alpha&wid=800",
         "価格": 2200,
         "URL": "https://www.kanebo-cosmetics.jp/lunasol/product/details/pointmake/p0501007/"
+    },
+    {
+        "ブランド": "RMK",
+        "発売日":"2022年1月7日発売",
+        "名前": "RMK ネイルポリッシュ",
+        "ジャンル": "エナメル",
+        "番号": "EX-48",
+        "色タイトル": "アンバーグラス",
+        "サブタイトル": "",
+        "色": "オレンジ",
+        "画像URL": "https://onlineshop.rmkrmk.com/medias/primaryImage-422016.jpg?context=bWFzdGVyfGltYWdlc3wyODI5MjF8aW1hZ2UvanBlZ3xoMzAvaDMxLzkwOTY4NzM4MDM4MDYvcHJpbWFyeUltYWdlXzQyMjAxNi5qcGd8ODI5NmM0ZDI0YjBiOTliYzY4MTUxZjYyYzA1MGYyZTI4M2Q0OGRiNzQyYjdkY2E2NjRhMjVlOTI5MzA2MTE1Nw",
+        "価格": 1650,
+        "URL": "https://onlineshop.rmkrmk.com/ja/Root-Category/Collection/[%E4%BA%88%E7%B4%84]RMK-%E3%83%8D%E3%82%A4%E3%83%AB%E3%83%9D%E3%83%AA%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%88%E6%95%B0%E9%87%8F%E9%99%90%E5%AE%9A%E8%89%B2%EF%BC%89/p/422016"
+    },
+    {
+        "ブランド": "RMK",
+        "発売日":"2022年1月7日発売",
+        "名前": "RMK ネイルポリッシュ",
+        "ジャンル": "エナメル",
+        "番号": "EX-47",
+        "色タイトル": "ベリーストーム",
+        "サブタイトル": "",
+        "色": "ピンク",
+        "画像URL": "https://onlineshop.rmkrmk.com/medias/primaryImage-422015.jpg?context=bWFzdGVyfGltYWdlc3wyODU1ODl8aW1hZ2UvanBlZ3xoY2UvaDQxLzkwOTY4NzMzNDUwNTQvcHJpbWFyeUltYWdlXzQyMjAxNS5qcGd8ODFiN2E0ZTVjMzdkNGI1YWRiYmYzZGU3MWNiNzg2ZjlkMWRlNDgyYTBjNDRiYTc2Y2Q0MzFkMzJjMTUyOTk2Mw",
+        "価格": 1650,
+        "URL": "https://onlineshop.rmkrmk.com/ja/Root-Category/Collection/[%E4%BA%88%E7%B4%84]RMK-%E3%83%8D%E3%82%A4%E3%83%AB%E3%83%9D%E3%83%AA%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%88%E6%95%B0%E9%87%8F%E9%99%90%E5%AE%9A%E8%89%B2%EF%BC%89/p/422015"
     }
 ]

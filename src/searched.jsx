@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from 'react'
 import ReactDOM from 'react-dom';
 import './reset.css';
 import './common.css';
 import './index.css';
 import './searched.css';
 import { ScrollToTopOnMount } from './App';
-import { useSearchParams } from "react-router-dom";
+
 
 export default class SearchedPage extends React.Component{
   constructor(props) {
@@ -58,8 +58,8 @@ export default class SearchedPage extends React.Component{
             <nav>
               <ul className="header-list">
                 <li><a href="/#search">検索</a></li>
+                <li><a href="/#roughly-search">ざっくり検索</a></li>
                 <li><a href="/#new">新作情報</a></li>
-                
                 <li><a href="/#news">お知らせ</a></li>
               </ul>
             </nav>
@@ -113,13 +113,16 @@ export default class SearchedPage extends React.Component{
 
         <footer>
           <div className="footer-inner">
-            <nav>
-              <ul className="footer-list">
-                <li><a href="#search">検索</a></li>
-                <li><a href="#new">新作情報</a></li>
-                <li><a href="#news">お知らせ</a></li>
-              </ul>
-            </nav>
+            <div className="contact">
+              <h5>contact</h5>
+              <a href="https://twitter.com/5k_o4">
+                <div className="contact-img">
+                  <img src="./twitter-logo.png" alt="twitterロゴ" />
+                </div>
+              </a>
+              <p>ご要望やお問い合わせに関しては、<br />制作主のtwitterのDMにて受け付けております。</p>
+            </div>
+            <p className="copyright">©︎ 2021 Shiori Inc.</p>
           </div>
         </footer>
       </div>
@@ -140,15 +143,15 @@ class SearchedItem extends React.Component{
           <img src={ this.props['画像URL'] } alt="検索画像" />
         </div>
         <div className="result-container">
-          <h3 className="font3">{ this.props['名前'] }</h3>
+          <h4 className="font4">{ this.props['名前'] }</h4>
           <div className="result-txt">
-            <h4 className="font4">{ this.props['ブランド'] }</h4>
+            <h5 className="font5">{ this.props['ブランド'] }</h5>
             <div className="txt-inner">
               <p className="colorttl">{ this.props['番号']} { this.props['色タイトル'] }</p>
               <p className="colorSttl">{ this.props['サブタイトル'] }</p>
             </div>
             <div className="result-detail">
-              <p className="result-price">¥{ this.props['価格'] }</p>
+              <p className="result-price">¥{ this.props['価格'] }（税込）</p>
               <p>カテゴリー：{ this.props['ジャンル'] }</p>
               <p>カラー：{ this.props['色'] }</p>
             </div>
